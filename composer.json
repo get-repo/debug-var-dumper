@@ -1,0 +1,9 @@
+{
+    "name": "get-repo/debug-var-dumper",
+    "description": "Debug Var Dumper",
+    "homepage": "https://github.com/get-repo/debug-var-dumper",
+    "license": "MIT",
+	"autoload": {
+		"files": ["debug.php"]
+	}
+}
