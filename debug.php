@@ -2,10 +2,10 @@
 // @codeCoverageIgnoreStart
 if (! function_exists('p')) {
 
-    function p($var, $exit = true, $output = true, $htmlentities = false, $cpt = 0)
+    function p($var, $exit = true, $output = true, $cpt = 0)
     {
         $_cpt = $cpt;
-        $is_cli = (php_sapi_name() == 'cli');
+        $is_cli = defined('_CLI') ? _CLI : (php_sapi_name() == 'cli');
 
         // display params
         $display_type_color = 'purple_bold';
@@ -42,7 +42,7 @@ if (! function_exists('p')) {
                 foreach ($var as $key => $val) {
                     $key = is_numeric($key) ? $key : "'" . htmlentities($key) . "'";
                     $o .= $ind . l($key, $display_keys_color, true) . ' => ';
-                    $o .= p($val, false, false, $htmlentities, $cpt) . $n;
+                    $o .= p($val, false, false, $cpt) . $n;
                 }
                 $o .= str_repeat(str_repeat(' ', $spaces_array_keys), $cpt - 1) . l(']', $display_type_color, true) . l("d$cpt", $display_type_color_additional_infos, true);
                 break;
@@ -91,7 +91,7 @@ if (! function_exists('p')) {
                             $val = $val[1];
                         }
                         $o .= $ind . l($key, $display_keys_color, true) . ' = ';
-                        $o .= p($val, false, false, $htmlentities, $cpt);
+                        $o .= p($val, false, false, $cpt);
                         $o .= $n;
                     }
                 }
@@ -127,7 +127,7 @@ if (! function_exists('l')) {
 
     function l($message, $color = null, $return = false)
     {
-        $is_cli = (php_sapi_name() == 'cli');
+        $is_cli = defined('_CLI') ? _CLI : (php_sapi_name() == 'cli');
         $default_color = ($is_cli ? 'white_bold' : 'black_bold');
 
         $color = (string) ($color === null) ? $default_color : strtolower($color);
